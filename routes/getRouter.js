@@ -2,6 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const url = require("url");
 
+const { getRandomInt } = require("../utils/index");
 const staticFilesController = require("../controllers/staticFilesController");
 const studentsController = require("../controllers/studentsController");
 
@@ -12,6 +13,12 @@ const getRouter = (req, res) => {
       fs.createReadStream(
         path.join(__dirname, "..", "public", "index.html")
       ).pipe(res);
+      break;
+
+    case "/get-random-img":
+      const imgs = fs.readdirSync(path.join(__dirname, "..", "public", "img"));
+      const img = imgs[getRandomInt(0, imgs.length - 1)];
+      res.writeHead(302, { location: `/img/${img}` });
       break;
 
     case "/admin/filter-student":
