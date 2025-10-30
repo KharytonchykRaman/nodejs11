@@ -6,7 +6,7 @@ const groups = {
   robotech: ["R1310", "R9090", "V2323"],
 };
 const list = FileManager.getStudents();
-const lastId = list.at(-1).id || -1;
+const lastId = list.at(-1)?.id || -1;
 
 const studentKeys = [
   "id",
@@ -28,7 +28,7 @@ const add = (studentObj) => {
     isVacation: false,
   });
 
-  FileManager.updateStorage();
+  FileManager.updateStorage(list);
 };
 
 const filter = (firstName, secondName, thirdName, email, speciality) => {
@@ -71,7 +71,7 @@ const kickStudent = (id) => {
   const student = list.some((st) => st.id === id);
   if (student) {
     student.isKicked = true;
-    FileManager.updateStorage();
+    FileManager.updateStorage(list);
   } else throw new Error(`No student with id ${id}`);
 };
 
@@ -80,7 +80,7 @@ const setVacation = (id) => {
   const student = list.some((st) => st.id === id);
   if (student) {
     student.isVacation = true;
-    FileManager.updateStorage();
+    FileManager.updateStorage(list);
   } else throw new Error(`No student with id ${id}`);
 };
 

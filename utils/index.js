@@ -15,8 +15,6 @@ const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-const fs = require("fs");
-
 function isJsonFile(file) {
   try {
     const stats = fs.statSync(file.filepath);
@@ -38,7 +36,7 @@ const validateJSONconfig = (file) => {
   if (!isJsonFile(file)) {
     return false;
   }
-  
+
   const students = JSON.parse(fs.readFileSync(file.filepath));
 
   return (

@@ -1,8 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 
-const { list } = require("./DataManager");
-
 const STUDENTS_JSON = path.join(__dirname, "students.json");
 const UPLOAD_DIR = path.join(__dirname, "..", "public", "upload");
 const UPLOAD_DIRS_BY_TYPE = {
@@ -33,7 +31,7 @@ const initConfig = (configFile) => {
   fs.writeFileSync(STUDENTS_JSON, fs.readFileSync(configFile.filepath));
 };
 
-const updateStorage = () => {
+const updateStorage = (list) => {
   fs.writeFileSync(STUDENTS_JSON, JSON.stringify(list));
 };
 
@@ -41,9 +39,9 @@ const start = () => {
   if (!fs.existsSync(STUDENTS_JSON)) {
     fs.writeFileSync(STUDENTS_JSON, "[]");
   }
-  for (const dir of UPLOAD_DIRS_BY_TYPE) {
-    if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true });
+  for (const key in UPLOAD_DIRS_BY_TYPE) {
+    if (!fs.existsSync(UPLOAD_DIRS_BY_TYPE[key])) {
+      fs.mkdirSync(UPLOAD_DIRS_BY_TYPE[key], { recursive: true });
     }
   }
 };

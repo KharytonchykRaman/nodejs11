@@ -49,7 +49,7 @@ const filterGroups = (req, res) => {
       );
     }
 
-    const fields = flattenObject(fields);
+    fields = flattenObject(fields);
 
     const groupsBySpeciality = DataManager.getGroup(fields.speciality);
 
