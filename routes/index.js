@@ -1,5 +1,6 @@
 const getRouter = require("./getRouter");
 const postRouter = require("./postRouter");
+const putRouter = require("./putRouter");
 
 const handler = (req, res) => {
   switch (req.method) {
@@ -9,6 +10,10 @@ const handler = (req, res) => {
 
     case "POST":
       postRouter(req, res);
+      break;
+
+    case "PUT":
+      putRouter(req, res);
       break;
 
     default:

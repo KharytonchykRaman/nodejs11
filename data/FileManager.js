@@ -1,17 +1,18 @@
 const fs = require("fs");
 const path = require("path");
-const { upload } = require("../controllers/studentsController");
+
+const { list } = require("./DataManager");
 
 const STUDENTS_JSON = path.join(__dirname, "students.json");
-const UPLOAD_DIR = path.join(__dirname, "upload");
+const UPLOAD_DIR = path.join(__dirname, "..", "public", "upload");
 const UPLOAD_DIRS_BY_TYPE = {
   text: path.join(UPLOAD_DIR, "text"),
   img: path.join(UPLOAD_DIR, "img"),
-}
+};
 
 const availableExtnames = {
   text: [".txt", ".pdf", ".docx"],
-  img: [".png", ".jpg", ".jpeg", ".webp"]
+  img: [".png", ".jpg", ".jpeg", ".webp"],
 };
 
 const getUploadDirByExtname = (extname) => {
@@ -25,7 +26,15 @@ const getUploadDirByExtname = (extname) => {
 };
 
 const getStudents = () => {
-  return JSON.stringify(fs.readFileSync(STUDENTS_JSON));
+  return JSON.parse(fs.readFileSync(STUDENTS_JSON));
+};
+
+const initConfig = (configFile) => {
+  fs.writeFileSync(STUDENTS_JSON, fs.readFileSync(configFile.filepath));
+};
+
+const updateStorage = () => {
+  fs.writeFileSync(STUDENTS_JSON, JSON.stringify(list));
 };
 
 const start = () => {
@@ -41,4 +50,10 @@ const start = () => {
 
 start();
 
-module.exports = { getStudents, availableExtnames, getUploadDirByExtname };
+module.exports = {
+  getStudents,
+  availableExtnames,
+  getUploadDirByExtname,
+  initConfig,
+  updateStorage,
+};

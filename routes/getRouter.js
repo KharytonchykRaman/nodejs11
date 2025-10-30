@@ -21,6 +21,9 @@ const getRouter = (req, res) => {
       res.writeHead(302, { location: `/img/${img}` });
       break;
 
+    case "get-students-dump":
+      studentsController.getStudentsDump(req, res);
+
     case "/admin/filter-student":
       studentsController.filterStudent(req, res);
       break;

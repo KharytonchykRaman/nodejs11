@@ -1,13 +1,13 @@
 const studentsController = require("../controllers/studentsController");
 
-const postRouter = (req, res) => {
+const putRouter = (req, res) => {
   switch (req.url) {
-    case "/admin/create-student":
-      studentsController.createStudent(req, res);
+    case "/admin/kick-student":
+      studentsController.kickStudent(req, res);
       break;
 
-    case "/admin/upload":
-      studentsController.upload(req, res);
+    case "/admin/set-vocation":
+      studentsController.setVacation(req, res);
       break;
 
     default:
@@ -17,4 +17,4 @@ const postRouter = (req, res) => {
   }
 };
 
-module.exports = postRouter;
+module.exports = putRouter;
