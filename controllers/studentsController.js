@@ -24,9 +24,7 @@ const filterStudent = (req, res) => {
     fields = flattenObject(fields);
 
     const filteredStudents = DataManager.filter(
-      fields.firstName,
-      fields.secondName,
-      fields.thirdName,
+      fields.fullName,
       fields.email,
       fields.speciality
     );
@@ -158,14 +156,21 @@ const upload = (req, res) => {
 };
 
 const kickStudent = (req, res) => {
-  let data = "";
-  req.on("data", (chunk) => (data += chunk));
+  const form = new formidable.IncomingForm();
 
-  req.on("end", () => {
-    const clientData = JSON.parse(data);
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      res.writeHead(400, { "Content-Type": "application/json" });
+      return res.end(
+        JSON.stringify({
+          status: "error",
+          message: err.message || "Некорректно заполненная форма",
+        })
+      );
+    }
 
     try {
-      DataManager.kickStudent(clientData.id);
+      DataManager.kickStudent(fields.id);
 
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(
@@ -187,20 +192,27 @@ const kickStudent = (req, res) => {
 };
 
 const setVacation = (req, res) => {
-  let data = "";
-  req.on("data", (chunk) => (data += chunk));
+  const form = new formidable.IncomingForm();
 
-  req.on("end", () => {
-    const clientData = JSON.parse(data);
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      res.writeHead(400, { "Content-Type": "application/json" });
+      return res.end(
+        JSON.stringify({
+          status: "error",
+          message: err.message || "Некорректно заполненная форма",
+        })
+      );
+    }
 
     try {
-      DataManager.setVacation(clientData.id);
+      DataManager.setVacation(fields.id);
 
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(
         JSON.stringify({
           status: "success",
-          message: "Student kicked",
+          message: "Student is on vacation",
         })
       );
     } catch (err) {

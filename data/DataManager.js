@@ -10,14 +10,14 @@ const lastId = list.at(-1)?.id || -1;
 
 const studentKeys = [
   "id",
-  "firstName",
-  "secondName",
-  "thirdName",
+  "fullName",
   "email",
   "speciality",
   "group",
   "isKicked",
   "isVacation",
+  "avatar",
+  "info",
 ];
 
 const add = (studentObj) => {
@@ -31,39 +31,29 @@ const add = (studentObj) => {
   FileManager.updateStorage(list);
 };
 
-const filter = (firstName, secondName, thirdName, email, speciality) => {
+const filter = (fullName, email, speciality) => {
   return list.filter((st) => {
-    const matchesFirstName =
-      !firstName ||
-      st.firstName?.toLowerCase().includes(firstName.toLowerCase());
-
-    const matchesSecondName =
-      !secondName ||
-      st.secondName?.toLowerCase().includes(secondName.toLowerCase());
-
-    const matchesThirdName =
-      !thirdName ||
-      st.thirdName?.toLowerCase().includes(thirdName.toLowerCase());
+    const matchesFullName =
+      !fullName || st.fullName?.toLowerCase().includes(fullName.toLowerCase());
 
     const matchesEmail = !email || st.email?.includes(email);
 
     const matchesSpeciality =
       !speciality || st.speciality?.includes(speciality);
 
-    return (
-      matchesFirstName &&
-      matchesSecondName &&
-      matchesThirdName &&
-      matchesEmail &&
-      matchesSpeciality
-    );
+    return matchesFullName && matchesEmail && matchesSpeciality;
   });
 };
 
 const getGroup = (speciality) => {
-  const chosenGroups = groups[speciality]; // redo
+  const result = {};
+  const chosenGroups = groups[speciality];
 
-  return list.filter((st) => chosenGroups.includes(st.group));
+  for (const gr of chosenGroups) {
+    result[gr] = list.filter((st) => gr === st.group);
+  }
+
+  return result;
 };
 
 const kickStudent = (id) => {

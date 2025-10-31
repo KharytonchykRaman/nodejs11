@@ -12,7 +12,7 @@ const getRouter = (req, res) => {
     case "/":
       fs.createReadStream(
         path.join(__dirname, "..", "public", "index.html")
-      ).pipe(res);
+      ).pipe(res);я
       break;
 
     case "/get-random-img":

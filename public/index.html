@@ -9,17 +9,17 @@
   </head>
   <body>
     <form id="createStudentForm">
-      <input type="file" name="avatarImg" required />
-      <input type="text" name="firstName" required />
-      <input type="text" name="secondName" required />
-      <input type="text" name="thirdName" required />
-      <input type="email" name="email" required />
-      <select name="speciality" id="specialitySelect" required>
+      <input type="file" name="avatarImg" placeholder="avatar image" required />
+      <input type="text" name="firstName" placeholder="first name" required />
+      <input type="text" name="secondName" placeholder="second name" required />
+      <input type="text" name="thirdName" placeholder="third name" required />
+      <input type="email" name="email" placeholder="email" required />
+      <select name="speciality" id="specialityCreateStudentSelect" required>
         <option value="design">design</option>
         <option value="programming">programming</option>
         <option value="robotech">robotech</option>
       </select>
-      <select name="group" id="groupSelect" required>
+      <select name="group" id="groupCreateStudentSelect" required>
         <option value="P1111" data-speciality="design">P1111</option>
         <option value="K1313" data-speciality="design">K1313</option>
         <option value="L1234" data-speciality="design">L1234</option>
@@ -31,7 +31,7 @@
         <option value="V2323" data-speciality="robotech">V2323</option>
       </select>
       <input type="file" name="info" />
-      <button type="button" id="randomImgBtn">random your avatar image</button>
+      <button type="button" id="randomImgButton">random your avatar image</button>
       <button type="submit" id="createStudentButton">create new student</button>
     </form>
 
@@ -40,26 +40,53 @@
       <input type="text" name="secondName" />
       <input type="text" name="thirdName" />
       <input type="email" name="email" />
-      <select name="speciality" id="specialitySelect">
+      <select name="speciality" id="specialityFilterStudentsSelect">
         <option value="design">design</option>
         <option value="programming">programming</option>
         <option value="robotech">robotech</option>
       </select>
-      <button type="submit">get students</button>
+      <button type="submit" id="filterStudentsButton">get students</button>
     </form>
 
     <form id="filterGroupsBySpeciality">
-      <select name="speciality" id="specialitySelect" required>
+      <select name="speciality" id="specialityFilterGroupsSelect" required>
         <option value="design">design</option>
         <option value="programming">programming</option>
         <option value="robotech">robotech</option>
       </select>
-      <button type="submit">get groups</button>
+      <button type="submit" id="filterGroupsButton">get groups</button>
     </form>
 
     <form id="uploadConfigForm">
       <input type="file" name="config" required />
-      <button type="submit">upload config</button>
+      <button type="submit" id="uploadConfigButton">upload config</button>
     </form>
+
+    <form id="kickStudentForm">
+      <input type="number" name="id" required />
+      <button type="submit" id="kickStudentButton">kick student</button>
+    </form>
+
+    <form id="setVacationForm">
+      <input type="number" name="id" required />
+      <button type="submit" id="setVacationButton">set vacation</button>
+    </form>
+
+    <div class="students-container" id="studentsContainer">
+
+    </div>
   </body>
+
+  <template class="student-card-template">
+    <div class="student-card">
+      <img src="{{avatar}}" class="avatar">
+      <p class="full-name">{{fullName}}</p>
+      <p class="email">{{email}}</p>
+      <p class="speciality">{{speciality}}</p>
+      <p class="group">{{group}}</p>
+      <p class="isKicked">{{isKicked}}</p>
+      <p class="isVacation">{{isVacation}}</p>
+      <a href="{{info}}"></a>
+    </div>
+  </template>
 </html>
