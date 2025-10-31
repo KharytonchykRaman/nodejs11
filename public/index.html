@@ -1,11 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <!--avatarImgName-->>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>mystat</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="/js/script.js"></script>
+  </head>
+  <body>
+    <form id="createStudentForm">
+      <input type="file" name="avatarImg" required />
+      <input type="text" name="firstName" required />
+      <input type="text" name="secondName" required />
+      <input type="text" name="thirdName" required />
+      <input type="email" name="email" required />
+      <select name="speciality" id="specialitySelect" required>
+        <option value="design">design</option>
+        <option value="programming">programming</option>
+        <option value="robotech">robotech</option>
+      </select>
+      <select name="group" id="groupSelect" required>
+        <option value="P1111" data-speciality="design">P1111</option>
+        <option value="K1313" data-speciality="design">K1313</option>
+        <option value="L1234" data-speciality="design">L1234</option>
+        <option value="J1313" data-speciality="programming">J1313</option>
+        <option value="P13023" data-speciality="programming">P13023</option>
+        <option value="G3838" data-speciality="programming">G3838</option>
+        <option value="R1310" data-speciality="robotech">R1310</option>
+        <option value="R9090" data-speciality="robotech">R9090</option>
+        <option value="V2323" data-speciality="robotech">V2323</option>
+      </select>
+      <input type="file" name="info" />
+      <button type="button" id="randomImgBtn">random your avatar image</button>
+      <button type="submit" id="createStudentButton">create new student</button>
+    </form>
+
+    <form id="filterStudentsForm">
+      <input type="text" name="firstName" />
+      <input type="text" name="secondName" />
+      <input type="text" name="thirdName" />
+      <input type="email" name="email" />
+      <select name="speciality" id="specialitySelect">
+        <option value="design">design</option>
+        <option value="programming">programming</option>
+        <option value="robotech">robotech</option>
+      </select>
+      <button type="submit">get students</button>
+    </form>
+
+    <form id="filterGroupsBySpeciality">
+      <select name="speciality" id="specialitySelect" required>
+        <option value="design">design</option>
+        <option value="programming">programming</option>
+        <option value="robotech">robotech</option>
+      </select>
+      <button type="submit">get groups</button>
+    </form>
+
+    <form id="uploadConfigForm">
+      <input type="file" name="config" required />
+      <button type="submit">upload config</button>
+    </form>
+  </body>
 </html>

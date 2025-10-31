@@ -61,7 +61,7 @@ const filter = (firstName, secondName, thirdName, email, speciality) => {
 };
 
 const getGroup = (speciality) => {
-  const chosenGroups = groups[speciality];
+  const chosenGroups = groups[speciality]; // redo
 
   return list.filter((st) => chosenGroups.includes(st.group));
 };

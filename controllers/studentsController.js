@@ -1,4 +1,5 @@
 const path = require("path");
+const fs = require("fs");
 const url = require("url");
 const formidable = require("formidable");
 
@@ -63,10 +64,10 @@ const createStudent = (req, res) => {
     keepExtensions: true,
   });
 
-  let uploadDir = "";
-
   form.on("fileBegin", (name, file) => {
     const extname = path.extname(file.originalFilename);
+
+    let uploadDir = "";
 
     try {
       uploadDir = FileManager.getUploadDirByExtname(extname);
@@ -94,9 +95,20 @@ const createStudent = (req, res) => {
     }
 
     fields = flattenObject(fields);
+
+    let infoFilePath = "";
+    if (!files.info) {
+      infoFilePath = path.join(
+        FileManager.getUploadDirByExtname(".txt"),
+        `${fields.secondName}.txt`
+      );
+      fs.writeFileSync(infoFilePath, "No info about this student");
+    }
+
     DataManager.add({
       ...fields,
-      avatar: uploadDir.split("/public").at(-1),
+      avatar: files.avatarImg.filepath.split("/public").at(-1),
+      info: files?.info.filepath.split("/public").at(-1) || infoFilePath,
     });
 
     res.writeHead(200, { "Content-Type": "application/json" });
@@ -123,8 +135,8 @@ const upload = (req, res) => {
       );
     }
 
-    if (validateJSONconfig(files.upload[0])) {
-      FileManager.initConfig(files.upload[0]);
+    if (validateJSONconfig(files.config[0])) {
+      FileManager.initConfig(files.config[0]);
 
       res.writeHead(200, { "Content-Type": "application/json" });
       res.end(
@@ -230,5 +242,5 @@ module.exports = {
   upload,
   kickStudent,
   setVacation,
-  getStudentsDump
+  getStudentsDump,
 };
